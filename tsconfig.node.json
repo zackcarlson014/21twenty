@@ -10,11 +10,7 @@
   "compilerOptions": {
     "composite": true,
     "module": "ESNext",
-    "compilerOptions": {
-      "paths": {
-        "vue": ["node_modules/vue/dist/vue.esm-bundler.js"]
-      }
-    },
+    "moduleResolution": "Bundler",
     "types": ["node"]
   }
 }
