@@ -10,6 +10,11 @@
       "StackName": "amplify-21twenty-dev-114528",
       "StackId": "arn:aws:cloudformation:us-east-1:497681990114:stack/amplify-21twenty-dev-114528/1a46d2d0-5c8c-11ee-9930-0adc9c8f033b",
       "AmplifyAppId": "d20gortol3lxre"
+    },
+    "categories": {
+      "api": {
+        "21twenty": {}
+      }
     }
   }
 }
