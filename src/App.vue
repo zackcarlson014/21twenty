@@ -13,9 +13,10 @@
 
 <script lang="ts">
   import { API } from 'aws-amplify';
-  import { GraphQLResult } from "@aws-amplify/api";
+  import { GraphQLResult, GraphQLSubscription } from "@aws-amplify/api";
   import { createTodo } from './graphql/mutations';
   import { listTodos } from './graphql/queries';
+  import { onCreateTodo } from './graphql/subscriptions';
 
 
   interface AppData {
@@ -24,10 +25,19 @@
     todos: Record<string, string>[];
   }
 
+  interface EventData {
+    value: {
+      data: {
+        onCreateTodo: any;
+      };
+    };
+  }
+
   export default {
     name: 'app',
     async created() {
-      this.getTodos();
+      await this.getTodos();
+      await this.subscribe();
     },
     data(): AppData {
       return {
@@ -39,13 +49,18 @@
     methods: {
       async createTodo() {
         const { name, description } = this;
-        if (!name || !description) return;
+
+        if (!name || !description)
+          return;
+  
         const todo = { name, description };
         this.todos = [...this.todos, todo];
+
         await API.graphql({
           query: createTodo,
           variables: { input: todo }
         });
+  
         this.name = '';
         this.description = '';
       },
@@ -53,8 +68,21 @@
         const todos: GraphQLResult<any> = await API.graphql({
           query: listTodos
         });
+
         this.todos = todos.data.listTodos.items;
-      }
+      },
+      async subscribe() {
+        (API.graphql({ query: onCreateTodo }) as GraphQLSubscription<any>).subscribe({
+          next: (eventData: EventData) => {
+            let todo = eventData.value.data.onCreateTodo;
+  
+            if (this.todos.some((item) => item.name === todo.name))
+              return; // remove duplications
+
+            this.todos = [...this.todos, todo];
+          }
+        });
+      },
     },
   };
 </script>
