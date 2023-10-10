@@ -46,10 +46,14 @@
   const todosStore = useTodosStore();
 
   const requestCreateTodo = async () => {
-    if (!todosStore.name|| !todosStore.description)
+    if (!todosStore.name || !todosStore.description)
       return;
 
-    const todo: Todo = { name: todosStore.name, description: todosStore.description };
+    const todo: Todo = {
+      name: todosStore.name,
+      description: todosStore.description
+    };
+
     todosStore.addTodo(todo);
 
     await API.graphql({
@@ -67,20 +71,23 @@
       query: listTodos
     });
 
-    todosStore.setTodos(todosResult.data.listTodos.items);
+    todosStore.setTodos(
+      todosResult.data.listTodos.items
+    );
   }
       
   const subscribe = async () => {
-    (API.graphql({ query: onCreateTodo }) as GraphQLSubscription<any>).subscribe({
-      next: (eventData: EventData) => {
-        let todo = eventData.value.data.onCreateTodo;
+    (API.graphql({ query: onCreateTodo }) as GraphQLSubscription<any>)
+      .subscribe({
+        next: (eventData: EventData) => {
+          const todo = eventData.value.data.onCreateTodo;
 
-        if (todosStore.todos.some((item) => item.name === todo.name))
-          return; // remove duplications
+          if (todosStore.todos.some((item) => item.name === todo.name))
+            return; // remove duplications
 
-        todosStore.addTodo(todo);
-      }
-    });
+          todosStore.addTodo(todo);
+        }
+      });
   }
 
   onMounted(async () => {
