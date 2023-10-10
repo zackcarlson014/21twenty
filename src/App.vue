@@ -28,7 +28,7 @@
   import { GraphQLResult, GraphQLSubscription } from "@aws-amplify/api";
   import { Authenticator } from '@aws-amplify/ui-vue';
   import '@aws-amplify/ui-vue/styles.css';
-  import { ref, reactive, computed, onMounted } from 'vue'
+  import { onMounted } from 'vue'
   import { createTodo } from './graphql/mutations';
   import { listTodos } from './graphql/queries';
   import { onCreateTodo } from './graphql/subscriptions';
@@ -44,23 +44,21 @@
   }
 
   const todosStore = useTodosStore();
-  const name = ref('');
-  const description = ref('');
 
   const requestCreateTodo = async () => {
-    if (!name.value || !description.value)
+    if (!todosStore.name|| !todosStore.description)
       return;
 
-    const todo: Todo = { name: name.value, description: description.value };
-    todosStore.todos.push(todo);
+    const todo: Todo = { name: todosStore.name, description: todosStore.description };
+    todosStore.addTodo(todo);
 
     await API.graphql({
       query: createTodo,
       variables: { input: todo }
     });
 
-    name.value = '';
-    description.value = '';
+    todosStore.name = '';
+    todosStore.description = '';
   }
 
   const getTodos = async () => {
@@ -69,7 +67,7 @@
       query: listTodos
     });
 
-    todosStore.todos = todosResult.data.listTodos.items;
+    todosStore.setTodos(todosResult.data.listTodos.items);
   }
       
   const subscribe = async () => {
@@ -80,7 +78,7 @@
         if (todosStore.todos.some((item) => item.name === todo.name))
           return; // remove duplications
 
-        todosStore.todos.push(todo);
+        todosStore.addTodo(todo);
       }
     });
   }
