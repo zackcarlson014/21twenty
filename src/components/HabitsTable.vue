@@ -15,6 +15,8 @@
   import { AgGridVue } from "ag-grid-vue3";
   import "ag-grid-community/styles//ag-grid.css";
   import "ag-grid-community/styles//ag-theme-alpine.css";
+import { CellClickedEvent } from 'ag-grid-community/dist/lib/events';
+import router from '@/router';
 
   const habitsStore = useHabitsStore();
 
@@ -27,6 +29,13 @@
       flex: 1,
       cellStyle: {
         textAlign: 'left',
+      },
+      onCellClicked: (event: CellClickedEvent) => {
+        console.log('Cell was clicked', event);
+        router.push({
+          name: 'habit',
+          params: { id: event.data.id },
+        });
       },
     },
     {
