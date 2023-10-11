@@ -3,7 +3,7 @@
     <authenticator>
       <template v-slot="{ user, signOut }">
         <nav class="mt-8">
-          <RouterLink to='/home'>
+          <RouterLink to='/'>
             <h1>Home</h1>
           </RouterLink> | 
 

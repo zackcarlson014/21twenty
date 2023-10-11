@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "@aws-amplify/ui-vue": "^3.1.28",
+    "ag-grid-community": "^30.2.0",
+    "ag-grid-vue3": "^30.2.0",
     "aws-amplify": "^5.3.11",
     "pinia": "^2.1.6",
     "vue": "^3.3.4",

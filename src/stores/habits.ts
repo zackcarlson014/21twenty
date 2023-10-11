@@ -14,7 +14,6 @@ export const useHabitsStore = defineStore({
     description: '',
   }),
   getters: {
-    habits: (state) => state.habits,
   },
   actions: {
     addHabit(habit: Habit) {

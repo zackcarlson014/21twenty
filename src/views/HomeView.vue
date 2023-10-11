@@ -1,36 +1,57 @@
 <template>
   <div class="home">
-    <input type="text" v-model="name" placeholder="Todo name" />
+    <v-row
+      density="compact"
+      align="center"
+      justify="center"
+      class="my-8"
+    >
+      <v-col cols="3" align-self="center">
+        <v-text-field
+          v-model="habitsStore.name"
+          density="compact"
+          variant="outlined" 
+          placeholder="Habit name"
+          clearable
+          hide-details
+        />
+      </v-col>
 
-    <input type="text" v-model="description" placeholder="Todo description" />
+      <v-col cols="3">
+        <v-text-field
+          v-model="habitsStore.description"
+          density="compact"
+          variant="outlined"
+          placeholder="Habit description"
+          clearable
+          hide-details
+        />
+      </v-col>
 
-    <button v-on:click="requestCreateHabit">Create Todo</button>
+      <v-col cols="auto">
+        <v-btn
+          color="primary"
+          density="compact"
+          variant="text"
+          v-on:click="requestCreateHabit"
+        >
+          Create Habit
+        </v-btn>
+      </v-col>
+    </v-row>
 
-    <div v-for="habit in habits" :key="habit.id">
-      <h3>{{ habit.name }}</h3>
-      <p>{{ habit.description }}</p>
-    </div>
-
+    <HabitsTable />
   </div>
 </template>
 
-<script lang="ts" setup>
-  import { API, Auth } from 'aws-amplify';
-  import { GraphQLResult, GraphQLSubscription } from "@aws-amplify/api";
-  import { onMounted } from 'vue'
+<script setup lang="ts">
+  import { API } from 'aws-amplify';
+  import { GraphQLResult } from "@aws-amplify/api";
+  import { onBeforeMount } from 'vue'
   import { createHabit } from '../graphql/mutations';
   import { listHabits } from '../graphql/queries';
-  import { onCreateHabit } from '../graphql/subscriptions';
   import { Habit, useHabitsStore } from '../stores/habits';
-
-
-  interface EventData {
-    value: {
-      data: {
-        onCreateTodo: any;
-      };
-    };
-  }
+  import HabitsTable from '../components/HabitsTable.vue';
 
   const habitsStore = useHabitsStore();
 
@@ -62,24 +83,11 @@
     habitsStore.setHabits(
       habitsResult.data.listHabits.items
     );
-  }
-      
-  const subscribe = async () => {
-    (API.graphql({ query: onCreateHabit }) as GraphQLSubscription<any>)
-      .subscribe({
-        next: (eventData: EventData) => {
-          const todo = eventData.value.data.onCreateTodo;
 
-          if (habitsStore.habits.some((item) => item.name === todo.name))
-            return; // remove duplications
-
-          habitsStore.addHabit(todo);
-        }
-      });
+    return habitsResult;
   }
 
-  onMounted(async () => {
+  onBeforeMount(async () => {
     await getHabits();
-    await subscribe();
   })
 </script>
