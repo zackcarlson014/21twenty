@@ -2,7 +2,7 @@
   <v-app>
     <authenticator>
       <template v-slot="{ user, signOut }">
-        <nav>
+        <nav class="mt-8">
           <RouterLink to='/home'>
             <h1>Home</h1>
           </RouterLink> | 
@@ -18,7 +18,9 @@
           </RouterLink> 
         </nav>
 
-        <h1>Hello, {{ user.username }}!</h1>
+        <h1 class="mt-8">
+          Welcome to Habit Tracker, {{ user.username }}!
+        </h1>
 
         <RouterView />
       </template>

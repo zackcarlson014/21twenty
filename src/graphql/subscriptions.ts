@@ -2,9 +2,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateTodo = /* GraphQL */ `
-  subscription OnCreateTodo($filter: ModelSubscriptionTodoFilterInput) {
-    onCreateTodo(filter: $filter) {
+export const onCreateHabit = /* GraphQL */ `
+  subscription OnCreateHabit($filter: ModelSubscriptionHabitFilterInput) {
+    onCreateHabit(filter: $filter) {
       id
       name
       description
@@ -14,9 +14,9 @@ export const onCreateTodo = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateTodo = /* GraphQL */ `
-  subscription OnUpdateTodo($filter: ModelSubscriptionTodoFilterInput) {
-    onUpdateTodo(filter: $filter) {
+export const onUpdateHabit = /* GraphQL */ `
+  subscription OnUpdateHabit($filter: ModelSubscriptionHabitFilterInput) {
+    onUpdateHabit(filter: $filter) {
       id
       name
       description
@@ -26,9 +26,9 @@ export const onUpdateTodo = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteTodo = /* GraphQL */ `
-  subscription OnDeleteTodo($filter: ModelSubscriptionTodoFilterInput) {
-    onDeleteTodo(filter: $filter) {
+export const onDeleteHabit = /* GraphQL */ `
+  subscription OnDeleteHabit($filter: ModelSubscriptionHabitFilterInput) {
+    onDeleteHabit(filter: $filter) {
       id
       name
       description

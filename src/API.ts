@@ -2,18 +2,18 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateTodoInput = {
+export type CreateHabitInput = {
   id?: string | null,
   name: string,
   description?: string | null,
 };
 
-export type ModelTodoConditionInput = {
+export type ModelHabitConditionInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  and?: Array< ModelTodoConditionInput | null > | null,
-  or?: Array< ModelTodoConditionInput | null > | null,
-  not?: ModelTodoConditionInput | null,
+  and?: Array< ModelHabitConditionInput | null > | null,
+  or?: Array< ModelHabitConditionInput | null > | null,
+  not?: ModelHabitConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -56,8 +56,8 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type Todo = {
-  __typename: "Todo",
+export type Habit = {
+  __typename: "Habit",
   id: string,
   name: string,
   description?: string | null,
@@ -65,23 +65,23 @@ export type Todo = {
   updatedAt: string,
 };
 
-export type UpdateTodoInput = {
+export type UpdateHabitInput = {
   id: string,
   name?: string | null,
   description?: string | null,
 };
 
-export type DeleteTodoInput = {
+export type DeleteHabitInput = {
   id: string,
 };
 
-export type ModelTodoFilterInput = {
+export type ModelHabitFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  and?: Array< ModelTodoFilterInput | null > | null,
-  or?: Array< ModelTodoFilterInput | null > | null,
-  not?: ModelTodoFilterInput | null,
+  and?: Array< ModelHabitFilterInput | null > | null,
+  or?: Array< ModelHabitFilterInput | null > | null,
+  not?: ModelHabitFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -100,18 +100,18 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type ModelTodoConnection = {
-  __typename: "ModelTodoConnection",
-  items:  Array<Todo | null >,
+export type ModelHabitConnection = {
+  __typename: "ModelHabitConnection",
+  items:  Array<Habit | null >,
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionTodoFilterInput = {
+export type ModelSubscriptionHabitFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionTodoFilterInput | null > | null,
-  or?: Array< ModelSubscriptionTodoFilterInput | null > | null,
+  and?: Array< ModelSubscriptionHabitFilterInput | null > | null,
+  or?: Array< ModelSubscriptionHabitFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -144,14 +144,14 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type CreateTodoMutationVariables = {
-  input: CreateTodoInput,
-  condition?: ModelTodoConditionInput | null,
+export type CreateHabitMutationVariables = {
+  input: CreateHabitInput,
+  condition?: ModelHabitConditionInput | null,
 };
 
-export type CreateTodoMutation = {
-  createTodo?:  {
-    __typename: "Todo",
+export type CreateHabitMutation = {
+  createHabit?:  {
+    __typename: "Habit",
     id: string,
     name: string,
     description?: string | null,
@@ -160,14 +160,14 @@ export type CreateTodoMutation = {
   } | null,
 };
 
-export type UpdateTodoMutationVariables = {
-  input: UpdateTodoInput,
-  condition?: ModelTodoConditionInput | null,
+export type UpdateHabitMutationVariables = {
+  input: UpdateHabitInput,
+  condition?: ModelHabitConditionInput | null,
 };
 
-export type UpdateTodoMutation = {
-  updateTodo?:  {
-    __typename: "Todo",
+export type UpdateHabitMutation = {
+  updateHabit?:  {
+    __typename: "Habit",
     id: string,
     name: string,
     description?: string | null,
@@ -176,14 +176,14 @@ export type UpdateTodoMutation = {
   } | null,
 };
 
-export type DeleteTodoMutationVariables = {
-  input: DeleteTodoInput,
-  condition?: ModelTodoConditionInput | null,
+export type DeleteHabitMutationVariables = {
+  input: DeleteHabitInput,
+  condition?: ModelHabitConditionInput | null,
 };
 
-export type DeleteTodoMutation = {
-  deleteTodo?:  {
-    __typename: "Todo",
+export type DeleteHabitMutation = {
+  deleteHabit?:  {
+    __typename: "Habit",
     id: string,
     name: string,
     description?: string | null,
@@ -192,13 +192,13 @@ export type DeleteTodoMutation = {
   } | null,
 };
 
-export type GetTodoQueryVariables = {
+export type GetHabitQueryVariables = {
   id: string,
 };
 
-export type GetTodoQuery = {
-  getTodo?:  {
-    __typename: "Todo",
+export type GetHabitQuery = {
+  getHabit?:  {
+    __typename: "Habit",
     id: string,
     name: string,
     description?: string | null,
@@ -207,17 +207,17 @@ export type GetTodoQuery = {
   } | null,
 };
 
-export type ListTodosQueryVariables = {
-  filter?: ModelTodoFilterInput | null,
+export type ListHabitsQueryVariables = {
+  filter?: ModelHabitFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListTodosQuery = {
-  listTodos?:  {
-    __typename: "ModelTodoConnection",
+export type ListHabitsQuery = {
+  listHabits?:  {
+    __typename: "ModelHabitConnection",
     items:  Array< {
-      __typename: "Todo",
+      __typename: "Habit",
       id: string,
       name: string,
       description?: string | null,
@@ -228,13 +228,13 @@ export type ListTodosQuery = {
   } | null,
 };
 
-export type OnCreateTodoSubscriptionVariables = {
-  filter?: ModelSubscriptionTodoFilterInput | null,
+export type OnCreateHabitSubscriptionVariables = {
+  filter?: ModelSubscriptionHabitFilterInput | null,
 };
 
-export type OnCreateTodoSubscription = {
-  onCreateTodo?:  {
-    __typename: "Todo",
+export type OnCreateHabitSubscription = {
+  onCreateHabit?:  {
+    __typename: "Habit",
     id: string,
     name: string,
     description?: string | null,
@@ -243,13 +243,13 @@ export type OnCreateTodoSubscription = {
   } | null,
 };
 
-export type OnUpdateTodoSubscriptionVariables = {
-  filter?: ModelSubscriptionTodoFilterInput | null,
+export type OnUpdateHabitSubscriptionVariables = {
+  filter?: ModelSubscriptionHabitFilterInput | null,
 };
 
-export type OnUpdateTodoSubscription = {
-  onUpdateTodo?:  {
-    __typename: "Todo",
+export type OnUpdateHabitSubscription = {
+  onUpdateHabit?:  {
+    __typename: "Habit",
     id: string,
     name: string,
     description?: string | null,
@@ -258,13 +258,13 @@ export type OnUpdateTodoSubscription = {
   } | null,
 };
 
-export type OnDeleteTodoSubscriptionVariables = {
-  filter?: ModelSubscriptionTodoFilterInput | null,
+export type OnDeleteHabitSubscriptionVariables = {
+  filter?: ModelSubscriptionHabitFilterInput | null,
 };
 
-export type OnDeleteTodoSubscription = {
-  onDeleteTodo?:  {
-    __typename: "Todo",
+export type OnDeleteHabitSubscription = {
+  onDeleteHabit?:  {
+    __typename: "Habit",
     id: string,
     name: string,
     description?: string | null,
