@@ -1,21 +1,29 @@
 <template>
-  <div class="app">
+  <v-app>
     <authenticator>
       <template v-slot="{ user, signOut }">
         <nav>
-          <RouterLink to='/home'>Home</RouterLink> | 
-          <RouterLink to='/about'>About</RouterLink> |
+          <RouterLink to='/home'>
+            <h1>Home</h1>
+          </RouterLink> | 
+
+          <RouterLink to='/about'>
+            <h1>About</h1>
+          </RouterLink> | 
+
           <RouterLink to='/' @click="signOut">
-            Sign Out
+            <h1>
+              Sign Out
+            </h1>
           </RouterLink> 
         </nav>
 
-        <h1>Hello {{ user.username }}!</h1>
+        <h1>Hello, {{ user.username }}!</h1>
 
         <RouterView />
       </template>
     </authenticator>
-  </div>
+  </v-app>
 </template>
 
 <script lang="ts" setup>
@@ -24,7 +32,11 @@
 </script>
 
 <style>
-.app {
-  min-height: 100%;
-}
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
 </style>
