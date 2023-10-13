@@ -32,4 +32,4 @@
     name.value = result.name;
     description.value = result.description;
   });
-</script>
+</script>@/graphql/queries/queries
