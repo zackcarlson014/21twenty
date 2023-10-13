@@ -2,7 +2,7 @@
   <v-app>
     <authenticator>
       <template v-slot="{ signOut }">
-        <nav class="mt-8">
+        <!-- <nav class="mt-8">
           <RouterLink to='/'>
             <h1>Home</h1>
           </RouterLink> | 
@@ -16,9 +16,13 @@
               Sign Out
             </h1>
           </RouterLink> 
-        </nav>
+        </nav> -->
 
-        <RouterView />
+        <NavBar :signOut="signOut" />
+
+        <div class="mt-12">
+          <RouterView />
+        </div>
       </template>
     </authenticator>
   </v-app>
@@ -27,6 +31,7 @@
 <script lang="ts" setup>
   import { Authenticator } from '@aws-amplify/ui-vue';
   import '@aws-amplify/ui-vue/styles.css';
+  import NavBar from './components/_shared/NavBar.vue';
 </script>
 
 <style>

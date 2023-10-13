@@ -40,7 +40,14 @@
       </v-col>
     </v-row>
 
-    <HabitsTable />
+    <v-container fluid>
+      <PageHeader
+        class="mb-8">
+        YOUR HABITS
+      </PageHeader>
+
+      <HabitsTable />
+    </v-container>
   </div>
 </template>
 
@@ -51,6 +58,7 @@
   import { createHabit } from '../graphql/mutations';
   import { listHabits } from '../graphql/queries';
   import { Habit, useHabitsStore } from '../stores/habits';
+  import PageHeader from '@/components/_shared/PageHeader.vue';
   import HabitsTable from '../components/HabitsTable.vue';
 
   const habitsStore = useHabitsStore();
