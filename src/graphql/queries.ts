@@ -11,9 +11,12 @@ export const getWorkout = /* GraphQL */ `
           id
           reps
           workoutID
+          weight
+          equipment
+          variation
           createdAt
           updatedAt
-          boutExerciseId
+          setExerciseId
           __typename
         }
         nextToken
@@ -55,9 +58,9 @@ export const listWorkouts = /* GraphQL */ `
     }
   }
 `;
-export const getBout = /* GraphQL */ `
-  query GetBout($id: ID!) {
-    getBout(id: $id) {
+export const getSet = /* GraphQL */ `
+  query GetSet($id: ID!) {
+    getSet(id: $id) {
       id
       Exercise {
         id
@@ -69,20 +72,23 @@ export const getBout = /* GraphQL */ `
       }
       reps
       workoutID
+      weight
+      equipment
+      variation
       createdAt
       updatedAt
-      boutExerciseId
+      setExerciseId
       __typename
     }
   }
 `;
-export const listBouts = /* GraphQL */ `
-  query ListBouts(
-    $filter: ModelBoutFilterInput
+export const listSets = /* GraphQL */ `
+  query ListSets(
+    $filter: ModelSetFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listBouts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listSets(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         Exercise {
@@ -95,9 +101,12 @@ export const listBouts = /* GraphQL */ `
         }
         reps
         workoutID
+        weight
+        equipment
+        variation
         createdAt
         updatedAt
-        boutExerciseId
+        setExerciseId
         __typename
       }
       nextToken
@@ -105,15 +114,15 @@ export const listBouts = /* GraphQL */ `
     }
   }
 `;
-export const boutsByWorkoutID = /* GraphQL */ `
-  query BoutsByWorkoutID(
+export const setsByWorkoutID = /* GraphQL */ `
+  query SetsByWorkoutID(
     $workoutID: ID!
     $sortDirection: ModelSortDirection
-    $filter: ModelBoutFilterInput
+    $filter: ModelSetFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    boutsByWorkoutID(
+    setsByWorkoutID(
       workoutID: $workoutID
       sortDirection: $sortDirection
       filter: $filter
@@ -132,9 +141,12 @@ export const boutsByWorkoutID = /* GraphQL */ `
         }
         reps
         workoutID
+        weight
+        equipment
+        variation
         createdAt
         updatedAt
-        boutExerciseId
+        setExerciseId
         __typename
       }
       nextToken

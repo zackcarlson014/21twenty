@@ -14,9 +14,12 @@ export const createWorkout = /* GraphQL */ `
           id
           reps
           workoutID
+          weight
+          equipment
+          variation
           createdAt
           updatedAt
-          boutExerciseId
+          setExerciseId
           __typename
         }
         nextToken
@@ -44,9 +47,12 @@ export const updateWorkout = /* GraphQL */ `
           id
           reps
           workoutID
+          weight
+          equipment
+          variation
           createdAt
           updatedAt
-          boutExerciseId
+          setExerciseId
           __typename
         }
         nextToken
@@ -74,9 +80,12 @@ export const deleteWorkout = /* GraphQL */ `
           id
           reps
           workoutID
+          weight
+          equipment
+          variation
           createdAt
           updatedAt
-          boutExerciseId
+          setExerciseId
           __typename
         }
         nextToken
@@ -92,12 +101,12 @@ export const deleteWorkout = /* GraphQL */ `
     }
   }
 `;
-export const createBout = /* GraphQL */ `
-  mutation CreateBout(
-    $input: CreateBoutInput!
-    $condition: ModelBoutConditionInput
+export const createSet = /* GraphQL */ `
+  mutation CreateSet(
+    $input: CreateSetInput!
+    $condition: ModelSetConditionInput
   ) {
-    createBout(input: $input, condition: $condition) {
+    createSet(input: $input, condition: $condition) {
       id
       Exercise {
         id
@@ -109,19 +118,22 @@ export const createBout = /* GraphQL */ `
       }
       reps
       workoutID
+      weight
+      equipment
+      variation
       createdAt
       updatedAt
-      boutExerciseId
+      setExerciseId
       __typename
     }
   }
 `;
-export const updateBout = /* GraphQL */ `
-  mutation UpdateBout(
-    $input: UpdateBoutInput!
-    $condition: ModelBoutConditionInput
+export const updateSet = /* GraphQL */ `
+  mutation UpdateSet(
+    $input: UpdateSetInput!
+    $condition: ModelSetConditionInput
   ) {
-    updateBout(input: $input, condition: $condition) {
+    updateSet(input: $input, condition: $condition) {
       id
       Exercise {
         id
@@ -133,19 +145,22 @@ export const updateBout = /* GraphQL */ `
       }
       reps
       workoutID
+      weight
+      equipment
+      variation
       createdAt
       updatedAt
-      boutExerciseId
+      setExerciseId
       __typename
     }
   }
 `;
-export const deleteBout = /* GraphQL */ `
-  mutation DeleteBout(
-    $input: DeleteBoutInput!
-    $condition: ModelBoutConditionInput
+export const deleteSet = /* GraphQL */ `
+  mutation DeleteSet(
+    $input: DeleteSetInput!
+    $condition: ModelSetConditionInput
   ) {
-    deleteBout(input: $input, condition: $condition) {
+    deleteSet(input: $input, condition: $condition) {
       id
       Exercise {
         id
@@ -157,9 +172,12 @@ export const deleteBout = /* GraphQL */ `
       }
       reps
       workoutID
+      weight
+      equipment
+      variation
       createdAt
       updatedAt
-      boutExerciseId
+      setExerciseId
       __typename
     }
   }

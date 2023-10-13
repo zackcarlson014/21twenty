@@ -11,9 +11,12 @@ export const onCreateWorkout = /* GraphQL */ `
           id
           reps
           workoutID
+          weight
+          equipment
+          variation
           createdAt
           updatedAt
-          boutExerciseId
+          setExerciseId
           __typename
         }
         nextToken
@@ -38,9 +41,12 @@ export const onUpdateWorkout = /* GraphQL */ `
           id
           reps
           workoutID
+          weight
+          equipment
+          variation
           createdAt
           updatedAt
-          boutExerciseId
+          setExerciseId
           __typename
         }
         nextToken
@@ -65,9 +71,12 @@ export const onDeleteWorkout = /* GraphQL */ `
           id
           reps
           workoutID
+          weight
+          equipment
+          variation
           createdAt
           updatedAt
-          boutExerciseId
+          setExerciseId
           __typename
         }
         nextToken
@@ -83,9 +92,9 @@ export const onDeleteWorkout = /* GraphQL */ `
     }
   }
 `;
-export const onCreateBout = /* GraphQL */ `
-  subscription OnCreateBout($filter: ModelSubscriptionBoutFilterInput) {
-    onCreateBout(filter: $filter) {
+export const onCreateSet = /* GraphQL */ `
+  subscription OnCreateSet($filter: ModelSubscriptionSetFilterInput) {
+    onCreateSet(filter: $filter) {
       id
       Exercise {
         id
@@ -97,16 +106,19 @@ export const onCreateBout = /* GraphQL */ `
       }
       reps
       workoutID
+      weight
+      equipment
+      variation
       createdAt
       updatedAt
-      boutExerciseId
+      setExerciseId
       __typename
     }
   }
 `;
-export const onUpdateBout = /* GraphQL */ `
-  subscription OnUpdateBout($filter: ModelSubscriptionBoutFilterInput) {
-    onUpdateBout(filter: $filter) {
+export const onUpdateSet = /* GraphQL */ `
+  subscription OnUpdateSet($filter: ModelSubscriptionSetFilterInput) {
+    onUpdateSet(filter: $filter) {
       id
       Exercise {
         id
@@ -118,16 +130,19 @@ export const onUpdateBout = /* GraphQL */ `
       }
       reps
       workoutID
+      weight
+      equipment
+      variation
       createdAt
       updatedAt
-      boutExerciseId
+      setExerciseId
       __typename
     }
   }
 `;
-export const onDeleteBout = /* GraphQL */ `
-  subscription OnDeleteBout($filter: ModelSubscriptionBoutFilterInput) {
-    onDeleteBout(filter: $filter) {
+export const onDeleteSet = /* GraphQL */ `
+  subscription OnDeleteSet($filter: ModelSubscriptionSetFilterInput) {
+    onDeleteSet(filter: $filter) {
       id
       Exercise {
         id
@@ -139,9 +154,12 @@ export const onDeleteBout = /* GraphQL */ `
       }
       reps
       workoutID
+      weight
+      equipment
+      variation
       createdAt
       updatedAt
-      boutExerciseId
+      setExerciseId
       __typename
     }
   }

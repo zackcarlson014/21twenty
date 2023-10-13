@@ -75,7 +75,7 @@ export type ModelSizeInput = {
 export type Workout = {
   __typename: "Workout",
   id: string,
-  Bouts?: ModelBoutConnection | null,
+  Bouts?: ModelSetConnection | null,
   moodStart?: number | null,
   moodEnd?: number | null,
   startTime?: string | null,
@@ -84,21 +84,24 @@ export type Workout = {
   updatedAt: string,
 };
 
-export type ModelBoutConnection = {
-  __typename: "ModelBoutConnection",
-  items:  Array<Bout | null >,
+export type ModelSetConnection = {
+  __typename: "ModelSetConnection",
+  items:  Array<Set | null >,
   nextToken?: string | null,
 };
 
-export type Bout = {
-  __typename: "Bout",
+export type Set = {
+  __typename: "Set",
   id: string,
   Exercise?: Exercise | null,
   reps?: number | null,
   workoutID: string,
+  weight?: string | null,
+  equipment?: string | null,
+  variation?: string | null,
   createdAt: string,
   updatedAt: string,
-  boutExerciseId?: string | null,
+  setExerciseId?: string | null,
 };
 
 export type Exercise = {
@@ -122,20 +125,26 @@ export type DeleteWorkoutInput = {
   id: string,
 };
 
-export type CreateBoutInput = {
+export type CreateSetInput = {
   id?: string | null,
   reps?: number | null,
   workoutID: string,
-  boutExerciseId?: string | null,
+  weight?: string | null,
+  equipment?: string | null,
+  variation?: string | null,
+  setExerciseId?: string | null,
 };
 
-export type ModelBoutConditionInput = {
+export type ModelSetConditionInput = {
   reps?: ModelIntInput | null,
   workoutID?: ModelIDInput | null,
-  and?: Array< ModelBoutConditionInput | null > | null,
-  or?: Array< ModelBoutConditionInput | null > | null,
-  not?: ModelBoutConditionInput | null,
-  boutExerciseId?: ModelIDInput | null,
+  weight?: ModelStringInput | null,
+  equipment?: ModelStringInput | null,
+  variation?: ModelStringInput | null,
+  and?: Array< ModelSetConditionInput | null > | null,
+  or?: Array< ModelSetConditionInput | null > | null,
+  not?: ModelSetConditionInput | null,
+  setExerciseId?: ModelIDInput | null,
 };
 
 export type ModelIDInput = {
@@ -154,14 +163,17 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type UpdateBoutInput = {
+export type UpdateSetInput = {
   id: string,
   reps?: number | null,
   workoutID?: string | null,
-  boutExerciseId?: string | null,
+  weight?: string | null,
+  equipment?: string | null,
+  variation?: string | null,
+  setExerciseId?: string | null,
 };
 
-export type DeleteBoutInput = {
+export type DeleteSetInput = {
   id: string,
 };
 
@@ -243,14 +255,17 @@ export type ModelWorkoutConnection = {
   nextToken?: string | null,
 };
 
-export type ModelBoutFilterInput = {
+export type ModelSetFilterInput = {
   id?: ModelIDInput | null,
   reps?: ModelIntInput | null,
   workoutID?: ModelIDInput | null,
-  and?: Array< ModelBoutFilterInput | null > | null,
-  or?: Array< ModelBoutFilterInput | null > | null,
-  not?: ModelBoutFilterInput | null,
-  boutExerciseId?: ModelIDInput | null,
+  weight?: ModelStringInput | null,
+  equipment?: ModelStringInput | null,
+  variation?: ModelStringInput | null,
+  and?: Array< ModelSetFilterInput | null > | null,
+  or?: Array< ModelSetFilterInput | null > | null,
+  not?: ModelSetFilterInput | null,
+  setExerciseId?: ModelIDInput | null,
 };
 
 export enum ModelSortDirection {
@@ -342,12 +357,15 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionBoutFilterInput = {
+export type ModelSubscriptionSetFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   reps?: ModelSubscriptionIntInput | null,
   workoutID?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionBoutFilterInput | null > | null,
-  or?: Array< ModelSubscriptionBoutFilterInput | null > | null,
+  weight?: ModelSubscriptionStringInput | null,
+  equipment?: ModelSubscriptionStringInput | null,
+  variation?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionSetFilterInput | null > | null,
+  or?: Array< ModelSubscriptionSetFilterInput | null > | null,
 };
 
 export type ModelSubscriptionExerciseFilterInput = {
@@ -377,15 +395,18 @@ export type CreateWorkoutMutation = {
     __typename: "Workout",
     id: string,
     Bouts?:  {
-      __typename: "ModelBoutConnection",
+      __typename: "ModelSetConnection",
       items:  Array< {
-        __typename: "Bout",
+        __typename: "Set",
         id: string,
         reps?: number | null,
         workoutID: string,
+        weight?: string | null,
+        equipment?: string | null,
+        variation?: string | null,
         createdAt: string,
         updatedAt: string,
-        boutExerciseId?: string | null,
+        setExerciseId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -408,15 +429,18 @@ export type UpdateWorkoutMutation = {
     __typename: "Workout",
     id: string,
     Bouts?:  {
-      __typename: "ModelBoutConnection",
+      __typename: "ModelSetConnection",
       items:  Array< {
-        __typename: "Bout",
+        __typename: "Set",
         id: string,
         reps?: number | null,
         workoutID: string,
+        weight?: string | null,
+        equipment?: string | null,
+        variation?: string | null,
         createdAt: string,
         updatedAt: string,
-        boutExerciseId?: string | null,
+        setExerciseId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -439,15 +463,18 @@ export type DeleteWorkoutMutation = {
     __typename: "Workout",
     id: string,
     Bouts?:  {
-      __typename: "ModelBoutConnection",
+      __typename: "ModelSetConnection",
       items:  Array< {
-        __typename: "Bout",
+        __typename: "Set",
         id: string,
         reps?: number | null,
         workoutID: string,
+        weight?: string | null,
+        equipment?: string | null,
+        variation?: string | null,
         createdAt: string,
         updatedAt: string,
-        boutExerciseId?: string | null,
+        setExerciseId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -460,14 +487,14 @@ export type DeleteWorkoutMutation = {
   } | null,
 };
 
-export type CreateBoutMutationVariables = {
-  input: CreateBoutInput,
-  condition?: ModelBoutConditionInput | null,
+export type CreateSetMutationVariables = {
+  input: CreateSetInput,
+  condition?: ModelSetConditionInput | null,
 };
 
-export type CreateBoutMutation = {
-  createBout?:  {
-    __typename: "Bout",
+export type CreateSetMutation = {
+  createSet?:  {
+    __typename: "Set",
     id: string,
     Exercise?:  {
       __typename: "Exercise",
@@ -479,20 +506,23 @@ export type CreateBoutMutation = {
     } | null,
     reps?: number | null,
     workoutID: string,
+    weight?: string | null,
+    equipment?: string | null,
+    variation?: string | null,
     createdAt: string,
     updatedAt: string,
-    boutExerciseId?: string | null,
+    setExerciseId?: string | null,
   } | null,
 };
 
-export type UpdateBoutMutationVariables = {
-  input: UpdateBoutInput,
-  condition?: ModelBoutConditionInput | null,
+export type UpdateSetMutationVariables = {
+  input: UpdateSetInput,
+  condition?: ModelSetConditionInput | null,
 };
 
-export type UpdateBoutMutation = {
-  updateBout?:  {
-    __typename: "Bout",
+export type UpdateSetMutation = {
+  updateSet?:  {
+    __typename: "Set",
     id: string,
     Exercise?:  {
       __typename: "Exercise",
@@ -504,20 +534,23 @@ export type UpdateBoutMutation = {
     } | null,
     reps?: number | null,
     workoutID: string,
+    weight?: string | null,
+    equipment?: string | null,
+    variation?: string | null,
     createdAt: string,
     updatedAt: string,
-    boutExerciseId?: string | null,
+    setExerciseId?: string | null,
   } | null,
 };
 
-export type DeleteBoutMutationVariables = {
-  input: DeleteBoutInput,
-  condition?: ModelBoutConditionInput | null,
+export type DeleteSetMutationVariables = {
+  input: DeleteSetInput,
+  condition?: ModelSetConditionInput | null,
 };
 
-export type DeleteBoutMutation = {
-  deleteBout?:  {
-    __typename: "Bout",
+export type DeleteSetMutation = {
+  deleteSet?:  {
+    __typename: "Set",
     id: string,
     Exercise?:  {
       __typename: "Exercise",
@@ -529,9 +562,12 @@ export type DeleteBoutMutation = {
     } | null,
     reps?: number | null,
     workoutID: string,
+    weight?: string | null,
+    equipment?: string | null,
+    variation?: string | null,
     createdAt: string,
     updatedAt: string,
-    boutExerciseId?: string | null,
+    setExerciseId?: string | null,
   } | null,
 };
 
@@ -643,15 +679,18 @@ export type GetWorkoutQuery = {
     __typename: "Workout",
     id: string,
     Bouts?:  {
-      __typename: "ModelBoutConnection",
+      __typename: "ModelSetConnection",
       items:  Array< {
-        __typename: "Bout",
+        __typename: "Set",
         id: string,
         reps?: number | null,
         workoutID: string,
+        weight?: string | null,
+        equipment?: string | null,
+        variation?: string | null,
         createdAt: string,
         updatedAt: string,
-        boutExerciseId?: string | null,
+        setExerciseId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -677,7 +716,7 @@ export type ListWorkoutsQuery = {
       __typename: "Workout",
       id: string,
       Bouts?:  {
-        __typename: "ModelBoutConnection",
+        __typename: "ModelSetConnection",
         nextToken?: string | null,
       } | null,
       moodStart?: number | null,
@@ -691,13 +730,13 @@ export type ListWorkoutsQuery = {
   } | null,
 };
 
-export type GetBoutQueryVariables = {
+export type GetSetQueryVariables = {
   id: string,
 };
 
-export type GetBoutQuery = {
-  getBout?:  {
-    __typename: "Bout",
+export type GetSetQuery = {
+  getSet?:  {
+    __typename: "Set",
     id: string,
     Exercise?:  {
       __typename: "Exercise",
@@ -709,23 +748,26 @@ export type GetBoutQuery = {
     } | null,
     reps?: number | null,
     workoutID: string,
+    weight?: string | null,
+    equipment?: string | null,
+    variation?: string | null,
     createdAt: string,
     updatedAt: string,
-    boutExerciseId?: string | null,
+    setExerciseId?: string | null,
   } | null,
 };
 
-export type ListBoutsQueryVariables = {
-  filter?: ModelBoutFilterInput | null,
+export type ListSetsQueryVariables = {
+  filter?: ModelSetFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListBoutsQuery = {
-  listBouts?:  {
-    __typename: "ModelBoutConnection",
+export type ListSetsQuery = {
+  listSets?:  {
+    __typename: "ModelSetConnection",
     items:  Array< {
-      __typename: "Bout",
+      __typename: "Set",
       id: string,
       Exercise?:  {
         __typename: "Exercise",
@@ -737,27 +779,30 @@ export type ListBoutsQuery = {
       } | null,
       reps?: number | null,
       workoutID: string,
+      weight?: string | null,
+      equipment?: string | null,
+      variation?: string | null,
       createdAt: string,
       updatedAt: string,
-      boutExerciseId?: string | null,
+      setExerciseId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
 };
 
-export type BoutsByWorkoutIDQueryVariables = {
+export type SetsByWorkoutIDQueryVariables = {
   workoutID: string,
   sortDirection?: ModelSortDirection | null,
-  filter?: ModelBoutFilterInput | null,
+  filter?: ModelSetFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type BoutsByWorkoutIDQuery = {
-  boutsByWorkoutID?:  {
-    __typename: "ModelBoutConnection",
+export type SetsByWorkoutIDQuery = {
+  setsByWorkoutID?:  {
+    __typename: "ModelSetConnection",
     items:  Array< {
-      __typename: "Bout",
+      __typename: "Set",
       id: string,
       Exercise?:  {
         __typename: "Exercise",
@@ -769,9 +814,12 @@ export type BoutsByWorkoutIDQuery = {
       } | null,
       reps?: number | null,
       workoutID: string,
+      weight?: string | null,
+      equipment?: string | null,
+      variation?: string | null,
       createdAt: string,
       updatedAt: string,
-      boutExerciseId?: string | null,
+      setExerciseId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -860,15 +908,18 @@ export type OnCreateWorkoutSubscription = {
     __typename: "Workout",
     id: string,
     Bouts?:  {
-      __typename: "ModelBoutConnection",
+      __typename: "ModelSetConnection",
       items:  Array< {
-        __typename: "Bout",
+        __typename: "Set",
         id: string,
         reps?: number | null,
         workoutID: string,
+        weight?: string | null,
+        equipment?: string | null,
+        variation?: string | null,
         createdAt: string,
         updatedAt: string,
-        boutExerciseId?: string | null,
+        setExerciseId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -890,15 +941,18 @@ export type OnUpdateWorkoutSubscription = {
     __typename: "Workout",
     id: string,
     Bouts?:  {
-      __typename: "ModelBoutConnection",
+      __typename: "ModelSetConnection",
       items:  Array< {
-        __typename: "Bout",
+        __typename: "Set",
         id: string,
         reps?: number | null,
         workoutID: string,
+        weight?: string | null,
+        equipment?: string | null,
+        variation?: string | null,
         createdAt: string,
         updatedAt: string,
-        boutExerciseId?: string | null,
+        setExerciseId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -920,15 +974,18 @@ export type OnDeleteWorkoutSubscription = {
     __typename: "Workout",
     id: string,
     Bouts?:  {
-      __typename: "ModelBoutConnection",
+      __typename: "ModelSetConnection",
       items:  Array< {
-        __typename: "Bout",
+        __typename: "Set",
         id: string,
         reps?: number | null,
         workoutID: string,
+        weight?: string | null,
+        equipment?: string | null,
+        variation?: string | null,
         createdAt: string,
         updatedAt: string,
-        boutExerciseId?: string | null,
+        setExerciseId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -941,13 +998,13 @@ export type OnDeleteWorkoutSubscription = {
   } | null,
 };
 
-export type OnCreateBoutSubscriptionVariables = {
-  filter?: ModelSubscriptionBoutFilterInput | null,
+export type OnCreateSetSubscriptionVariables = {
+  filter?: ModelSubscriptionSetFilterInput | null,
 };
 
-export type OnCreateBoutSubscription = {
-  onCreateBout?:  {
-    __typename: "Bout",
+export type OnCreateSetSubscription = {
+  onCreateSet?:  {
+    __typename: "Set",
     id: string,
     Exercise?:  {
       __typename: "Exercise",
@@ -959,19 +1016,22 @@ export type OnCreateBoutSubscription = {
     } | null,
     reps?: number | null,
     workoutID: string,
+    weight?: string | null,
+    equipment?: string | null,
+    variation?: string | null,
     createdAt: string,
     updatedAt: string,
-    boutExerciseId?: string | null,
+    setExerciseId?: string | null,
   } | null,
 };
 
-export type OnUpdateBoutSubscriptionVariables = {
-  filter?: ModelSubscriptionBoutFilterInput | null,
+export type OnUpdateSetSubscriptionVariables = {
+  filter?: ModelSubscriptionSetFilterInput | null,
 };
 
-export type OnUpdateBoutSubscription = {
-  onUpdateBout?:  {
-    __typename: "Bout",
+export type OnUpdateSetSubscription = {
+  onUpdateSet?:  {
+    __typename: "Set",
     id: string,
     Exercise?:  {
       __typename: "Exercise",
@@ -983,19 +1043,22 @@ export type OnUpdateBoutSubscription = {
     } | null,
     reps?: number | null,
     workoutID: string,
+    weight?: string | null,
+    equipment?: string | null,
+    variation?: string | null,
     createdAt: string,
     updatedAt: string,
-    boutExerciseId?: string | null,
+    setExerciseId?: string | null,
   } | null,
 };
 
-export type OnDeleteBoutSubscriptionVariables = {
-  filter?: ModelSubscriptionBoutFilterInput | null,
+export type OnDeleteSetSubscriptionVariables = {
+  filter?: ModelSubscriptionSetFilterInput | null,
 };
 
-export type OnDeleteBoutSubscription = {
-  onDeleteBout?:  {
-    __typename: "Bout",
+export type OnDeleteSetSubscription = {
+  onDeleteSet?:  {
+    __typename: "Set",
     id: string,
     Exercise?:  {
       __typename: "Exercise",
@@ -1007,9 +1070,12 @@ export type OnDeleteBoutSubscription = {
     } | null,
     reps?: number | null,
     workoutID: string,
+    weight?: string | null,
+    equipment?: string | null,
+    variation?: string | null,
     createdAt: string,
     updatedAt: string,
-    boutExerciseId?: string | null,
+    setExerciseId?: string | null,
   } | null,
 };
 

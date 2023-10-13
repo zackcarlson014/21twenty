@@ -1,17 +1,20 @@
 type Workout @model @auth(rules: [{allow: public}]) {
   id: ID!
-  Bouts: [Bout] @hasMany(indexName: "byWorkout", fields: ["id"])
+  Bouts: [Set] @hasMany(indexName: "byWorkout", fields: ["id"])
   moodStart: Int
   moodEnd: Int
   startTime: String
   endTime: String
 }
 
-type Bout @model @auth(rules: [{allow: public}]) {
+type Set @model @auth(rules: [{allow: public}]) {
   id: ID!
   Exercise: Exercise @hasOne
   reps: Int
   workoutID: ID! @index(name: "byWorkout")
+  weight: String
+  equipment: String
+  variation: String
 }
 
 type Exercise @model @auth(rules: [{allow: public}]) {
@@ -25,5 +28,4 @@ type Habit @model @auth(rules: [{allow: public}]) {
   name: String!
   description: String
   category: String
-}
- 
+} 
