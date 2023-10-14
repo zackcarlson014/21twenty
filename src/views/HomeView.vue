@@ -1,52 +1,77 @@
 <template>
   <div class="home">
-    <v-row
-      density="compact"
-      align="center"
-      justify="center"
-      class="my-8"
+    <DialogForm
+      v-if="show"
+      :show="show"
+      :title="'Create a new habit'"
+      :closeDialog="closeDialog"
+      :requestCreateHabit="requestCreateHabit"
     >
-      <v-col cols="3" align-self="center">
-        <v-text-field
-          v-model="habitsStore.name"
-          density="compact"
-          variant="outlined" 
-          placeholder="Habit name"
-          clearable
-          hide-details
-        />
-      </v-col>
+      <v-row
+        density="compact"
+        justify="center"
+        class="mt-2"
+      >
+        <v-col cols="10" align-self="center">
+          <v-text-field
+            v-model="habitsStore.name"
+            density="compact"
+            variant="outlined" 
+            placeholder="Name"
+            clearable
+            hide-details="auto"
+          />
+        </v-col>
+      </v-row>
 
-      <v-col cols="3">
-        <v-text-field
-          v-model="habitsStore.description"
-          density="compact"
-          variant="outlined"
-          placeholder="Habit description"
-          clearable
-          hide-details
-        />
-      </v-col>
+      <v-row
+        density="compact"
+        justify="center"
+      >
+        <v-col cols="10">
+          <v-textarea
+            v-model="habitsStore.description"
+            density="compact"
+            variant="outlined"
+            placeholder="Description"
+            hide-details="auto"
+          />
+        </v-col>
+      </v-row>
 
-      <v-col cols="auto">
-        <v-btn
-          color="primary"
-          density="compact"
-          variant="text"
-          v-on:click="requestCreateHabit"
-        >
-          Create Habit
-        </v-btn>
-      </v-col>
-    </v-row>
+      <v-row
+        density="compact"
+        justify="center"
+      >
+        <v-col cols="10">
+          <v-autocomplete
+            v-model="habitsStore.category"
+            :items="categories"
+            item-title="title"
+            item-value="value"
+            density="compact"
+            variant="outlined"
+            placeholder="Category"
+            hide-details="auto"
+          />
+        </v-col>
+      </v-row>
+    </DialogForm>
 
     <v-container fluid>
-      <PageHeader
-        class="mb-8">
-        YOUR HABITS
-      </PageHeader>
+      <v-row density="compact" justify="center" class="mx-4">
+        <v-col cols="12" align-self="center">
+          <PageHeader
+            :openDialog="openDialog"
+            class="mb-8">
+            YOUR HABITS
+          </PageHeader>
+        </v-col>
+      </v-row>
 
-      <HabitsTable />
+      <v-row density="compact" justify="center">
+        <HabitsTable />
+      </v-row>
     </v-container>
   </div>
 </template>
@@ -54,45 +79,73 @@
 <script setup lang="ts">
   import { API } from 'aws-amplify';
   import { GraphQLResult } from "@aws-amplify/api";
-  import { onBeforeMount } from 'vue'
+  import { computed, onBeforeMount, ref } from 'vue'
   import { createHabit } from '../graphql/mutations';
   import { listHabits } from '../graphql/queries';
   import { Habit, useHabitsStore } from '../stores/habits';
+  import { CATEGORIES } from '@/_helpers/categories';
+  import DialogForm from '@/components/_shared/DialogForm.vue';
   import PageHeader from '@/components/_shared/PageHeader.vue';
   import HabitsTable from '../components/HabitsTable.vue';
 
   const habitsStore = useHabitsStore();
+  const show = ref(false);
+  const categories = computed(() => CATEGORIES);
 
   const requestCreateHabit = async () => {
-    if (!habitsStore.name || !habitsStore.description)
+    if (!habitsStore.name || !habitsStore.description || !habitsStore.category)
       return;
 
     const todo: Habit = {
       name: habitsStore.name,
-      description: habitsStore.description
+      description: habitsStore.description,
+      category: habitsStore.category,
     };
 
     habitsStore.addHabit(todo);
 
-    await API.graphql({
-      query: createHabit,
-      variables: { input: todo }
-    });
+    try {
+      await API.graphql({
+        query: createHabit,
+        variables: { input: todo }
+      });
+    } catch (error) {
+      console.log(error);
+    }
 
     habitsStore.name = '';
     habitsStore.description = '';
+    habitsStore.category = '';
+    closeDialog();
+    console.log({ habitsStore });
   }
 
   const getHabits = async () => {
-    const habitsResult: GraphQLResult<any> = await API.graphql({
-      query: listHabits
-    });
+    let habitsResult: GraphQLResult<any> = {};
+    try {
+      habitsResult = await API.graphql({
+        query: listHabits
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    console.log({ habitsResult });
 
     habitsStore.setHabits(
       habitsResult.data.listHabits.items
     );
 
     return habitsResult;
+  }
+  const openDialog = () => {
+    show.value = true;
+  }
+  const closeDialog = () => {
+    habitsStore.name = '';
+    habitsStore.description = '';
+    habitsStore.category = '';
+    show.value = false;
   }
 
   onBeforeMount(async () => {

@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    color="primary"
+    color="blue lighten-5"
     density="compact"
   >
     <template v-slot:prepend>
@@ -10,20 +10,27 @@
         </template>
 
         <v-list>
-          <v-list-item
-            v-for="(item, index) in [{ title: 'Home' }, { title: 'About' }]"
-            :key="index"
-            :value="index"
+          <RouterLink
+            :to="{ name: 'home' }"
+            class="router-link-black"
           >
-            <v-list-item-title>
-              <RouterLink
-                :to="{ name: item.title.toLowerCase() }"
-                class="router-link-black"
-              >
-                {{ item.title }}
-              </RouterLink>
-            </v-list-item-title>
-          </v-list-item>
+            <v-list-item>
+              <v-list-item-title>
+                Home
+              </v-list-item-title>
+            </v-list-item>
+          </RouterLink>
+
+          <RouterLink
+            :to="{ name: 'about' }"
+            class="router-link-black"
+          >
+            <v-list-item>
+              <v-list-item-title>
+                About
+              </v-list-item-title>
+            </v-list-item>
+          </RouterLink>
         </v-list>
       </v-menu>
     </template>

@@ -1,12 +1,10 @@
 <template>
-  <v-row density="compact" justify="center">
-    <AgGridVue
-      style="width: 1000px; height: 500px"
-      class="ag-theme-alpine"
-      :columnDefs="columnDefs"
-      :rowData="rowData"
-    />
-  </v-row>
+  <AgGridVue
+    style="width: 1000px; height: 500px"
+    class="ag-theme-alpine"
+    :columnDefs="columnDefs"
+    :rowData="rowData"
+  />
 </template>
 
 <script setup lang="ts">
@@ -15,8 +13,8 @@
   import { AgGridVue } from "ag-grid-vue3";
   import "ag-grid-community/styles//ag-grid.css";
   import "ag-grid-community/styles//ag-theme-alpine.css";
-import { CellClickedEvent } from 'ag-grid-community/dist/lib/events';
-import router from '@/router';
+  import { CellClickedEvent } from 'ag-grid-community/dist/lib/events';
+  import router from '@/router';
 
   const habitsStore = useHabitsStore();
 
@@ -41,6 +39,14 @@ import router from '@/router';
     {
       field: 'description',
       headerName: 'Description',
+      flex: 1,
+      cellStyle: {
+        textAlign: 'left',
+      },
+    },
+    {
+      field: 'category',
+      headerName: 'Category',
       flex: 1,
       cellStyle: {
         textAlign: 'left',

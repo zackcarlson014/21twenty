@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 export interface Habit {
   name: string;
   description: string;
+  category: string;
   id?: string;
 }
 
@@ -12,6 +13,7 @@ export const useHabitsStore = defineStore({
     habits: [] as Habit[],
     name: '',
     description: '',
+    category: '',
   }),
   getters: {
   },
