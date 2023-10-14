@@ -18,7 +18,9 @@
 
   const habitsStore = useHabitsStore();
 
-  const rowData = computed(() => habitsStore.habits);
+  const rowData = computed(() =>
+    habitsStore.habits,
+  );
 
   const columnDefs = [
     {
@@ -51,6 +53,13 @@
       cellStyle: {
         textAlign: 'left',
       },
+    },
+    {
+        headerName: 'Delete',
+        cellRenderer: 'btnCellRenderer',
+        cellRendererParams: {
+          clicked: () => {},
+        },
     },
   ]
 </script>

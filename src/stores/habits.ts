@@ -19,6 +19,7 @@ export const useHabitsStore = defineStore({
   },
   actions: {
     addHabit(habit: Habit) {
+      console.log({ habit });
       this.habits.push(habit);
     },
     setHabits(habits: Habit[]) {

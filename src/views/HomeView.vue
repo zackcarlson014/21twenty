@@ -96,18 +96,16 @@
     if (!habitsStore.name || !habitsStore.description || !habitsStore.category)
       return;
 
-    const todo: Habit = {
+    const habit: Habit = {
       name: habitsStore.name,
       description: habitsStore.description,
       category: habitsStore.category,
     };
 
-    habitsStore.addHabit(todo);
-
     try {
       await API.graphql({
         query: createHabit,
-        variables: { input: todo }
+        variables: { input: habit }
       });
     } catch (error) {
       console.log(error);
@@ -117,7 +115,7 @@
     habitsStore.description = '';
     habitsStore.category = '';
     closeDialog();
-    console.log({ habitsStore });
+    getHabits();
   }
 
   const getHabits = async () => {
@@ -129,8 +127,6 @@
     } catch (error) {
       console.log(error);
     }
-
-    console.log({ habitsResult });
 
     habitsStore.setHabits(
       habitsResult.data.listHabits.items
