@@ -9,10 +9,10 @@
       mdi-account-circle
     </v-icon>
 
-    Welcome, {{ props.user.username }}
+    Welcome, {{ props.username }}
   </v-btn>
 </template>
 
-<script setup>
- const props = defineProps(['activatorProps', 'user'])
+<script setup lang="ts">
+  const props = defineProps(['activatorProps', 'username'])
 </script>

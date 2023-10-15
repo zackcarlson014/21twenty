@@ -48,18 +48,10 @@
     <template v-slot:append>
       <v-menu>
         <template v-slot:activator="{ props }">
-          <v-btn
-            v-bind="props"
-            type="text">
-
-            <v-icon
-              size="x-large"
-              class="mr-2">
-              mdi-account-circle
-            </v-icon>
-
-            Welcome, {{ authProps.user.username }}
-          </v-btn>
+          <AccountBtn
+            :activatorProps="props"
+            :username="authProps.user.username"
+          />
         </template>
 
         <v-list>
@@ -76,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-  import ActivatorBtn from '@/components/_shared/AccountBtn.vue';
+  import AccountBtn from './AccountBtn.vue'
   const authProps = defineProps(['signOut', 'user']);
 </script>
 
