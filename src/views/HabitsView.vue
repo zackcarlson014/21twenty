@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="habits">
     <DialogForm
       v-if="show"
       :show="show"
@@ -165,3 +165,9 @@
     await requestGetHabits();
   });
 </script>
+
+<style>
+  .habits {
+    justify-content: center;
+  }
+</style>
