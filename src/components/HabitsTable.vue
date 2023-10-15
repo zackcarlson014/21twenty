@@ -120,9 +120,6 @@ import { GridOptions } from 'ag-grid-community/dist/lib/entities/gridOptions';
   const gridOptions: GridOptions<any> = {
     columnDefs,
     defaultColDef: {
-      enableRowGroup: true,
-      enablePivot: true,
-      enableValue: true,
       sortable: true,
       filter: true,
       resizable: true,

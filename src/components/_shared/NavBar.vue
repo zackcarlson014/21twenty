@@ -22,12 +22,12 @@
           </RouterLink>
 
           <RouterLink
-            :to="{ name: 'about' }"
+            :to="{ name: 'habits' }"
             class="router-link-black"
           >
             <v-list-item>
               <v-list-item-title>
-                About
+                Habits
               </v-list-item-title>
             </v-list-item>
           </RouterLink>
@@ -46,15 +46,38 @@
     </v-row>
 
     <template v-slot:append>
-      <v-btn type="text" @click="props.signOut">
-        Sign Out
-      </v-btn>
+      <v-menu>
+        <template v-slot:activator="{ props }">
+          <v-btn
+            v-bind="props"
+            type="text">
+
+            <v-icon
+              size="x-large"
+              class="mr-2">
+              mdi-account-circle
+            </v-icon>
+
+            Welcome, {{ authProps.user.username }}
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item 
+            @click="authProps.signOut">
+            <v-list-item-title>
+              Sign Out
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </template>
   </v-app-bar>
 </template>
 
 <script setup lang="ts">
-const props = defineProps(['signOut']);
+  import ActivatorBtn from '@/components/_shared/AccountBtn.vue';
+  const authProps = defineProps(['signOut', 'user']);
 </script>
 
 <style>
