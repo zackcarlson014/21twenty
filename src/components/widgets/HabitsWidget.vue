@@ -26,7 +26,6 @@
 </template>
 
 <script setup lang="ts">
-  import router from '@/router';
   import { useHabitsStore } from '@/stores/habits';
   import { Category, CATEGORIES } from '@/_helpers/categories';
 

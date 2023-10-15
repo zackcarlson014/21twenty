@@ -14,7 +14,6 @@
   import { AgGridVue } from "ag-grid-vue3";
   import "ag-grid-community/styles//ag-grid.css";
   import "ag-grid-community/styles//ag-theme-alpine.css";
-  import router from '@/router';
   import { CellClickedEvent, GridOptions } from 'ag-grid-community/dist/lib/main';
 
   // const props = defineProps(['requestDeleteHabit']);
