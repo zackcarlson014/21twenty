@@ -4,22 +4,34 @@
     variant="tonal"
     color="primary"
   >
-    <v-card-title>
-      Recent Habits
-    </v-card-title>
+    <RouterLink to="/habits" class="router-link-black">
+      <v-card-title justify="center">
+        <v-icon>mdi-list-status</v-icon>
+        Recent Habits
+      </v-card-title>
+    </RouterLink>
 
     <v-card-text>
       <v-list>
-          <v-list-item
-            v-for="(habit, i) in habitsStore.habits"
-            :key="i"
-            @click="habitsStore.routeToHabitPage(habit.id as string)"
-          >
-            <v-icon class="mr-2">
-              {{ findCategoryIcon(habit.category) }}
-            </v-icon>
-            {{ habit.name }} ({{ findCategoryTitle(habit.category) }})
-          </v-list-item>
+        <v-list-item
+          v-for="(habit, i) in habitsStore.habits"
+          :key="i"
+          @click="habitsStore.routeToHabitPage(habit.id as string)"
+        >
+          <v-row justify="center">
+            <v-col cols="auto">
+              <v-icon class="mr-2" size="x-large">
+                {{ findCategoryIcon(habit.category) }}
+              </v-icon>
+            </v-col>
+
+            <v-col cols="auto">
+              <h4>
+                {{ habit.name }} ({{ findCategoryTitle(habit.category) }})
+              </h4>
+            </v-col>
+          </v-row>
+        </v-list-item>
       </v-list>
     </v-card-text>
   </v-card>
