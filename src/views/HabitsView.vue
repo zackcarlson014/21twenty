@@ -71,7 +71,7 @@
 
       <v-row density="compact" justify="center">
         <HabitsTable
-          :requestDeleteHabit="requestDeleteHabit"
+          :requestDeleteHabit="habitsStore.requestDeleteHabit"
         />
       </v-row>
     </v-container>
@@ -79,12 +79,8 @@
 </template>
 
 <script setup lang="ts">
-  import { API } from 'aws-amplify';
-  import { GraphQLResult } from "@aws-amplify/api";
-  import { computed, onBeforeMount, ref } from 'vue'
-  import { createHabit, deleteHabit } from '../graphql/mutations';
-  import { listHabits } from '../graphql/queries';
-  import { Habit, useHabitsStore } from '../stores/habits';
+  import { computed, ref } from 'vue'
+  import { useHabitsStore } from '../stores/habits';
   import { CATEGORIES } from '@/_helpers/categories';
   import DialogForm from '@/components/_shared/DialogForm.vue';
   import PageHeader from '@/components/_shared/PageHeader.vue';
@@ -94,60 +90,9 @@
   const show = ref(false);
   const categories = computed(() => CATEGORIES);
 
-  const requestGetHabits = async () => {
-    let habitsResult: GraphQLResult<any> = {};
-    try {
-      habitsResult = await API.graphql({
-        query: listHabits
-      });
-    } catch (error) {
-      console.log(error);
-    }
-
-    habitsStore.setHabits(
-      habitsResult.data.listHabits.items
-    );
-
-    return habitsResult;
-  };
-
-  const requestCreateHabit = async () => {
-    if (!habitsStore.name || !habitsStore.description || !habitsStore.category)
-      return;
-
-    const habit: Habit = {
-      name: habitsStore.name,
-      description: habitsStore.description,
-      category: habitsStore.category,
-    };
-
-    try {
-      await API.graphql({
-        query: createHabit,
-        variables: { input: habit },
-      });
-    } catch (error) {
-      console.error(error);
-    }
-
-    habitsStore.name = '';
-    habitsStore.description = '';
-    habitsStore.category = '';
+  const requestCreateHabit = () => {
+    habitsStore.requestCreateHabit();
     closeDialog();
-    requestGetHabits();
-  };
-
-  const requestDeleteHabit = async (habit: Habit) => {
-    try {
-      await API.graphql({
-        query: deleteHabit,
-        variables: { input: { id: habit.id } },
-      });
-    } catch (error) {
-      console.error(error);
-    };
-
-    requestGetHabits();
   };
 
   const openDialog = () => {
@@ -160,10 +105,6 @@
     habitsStore.category = '';
     show.value = false;
   };
-
-  onBeforeMount(async () => {
-    await requestGetHabits();
-  });
 </script>
 
 <style>

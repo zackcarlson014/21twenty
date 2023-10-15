@@ -8,16 +8,12 @@
       </PageHeader>
 
       <v-row density="compact" justify="center" class="mt-8">
-        <v-col cols="4">
+        <v-col cols="6">
           <HabitsWidget />
         </v-col>
 
-        <v-col cols="4">
-          <HabitsWidget />
-        </v-col>
-
-        <v-col cols="4">
-          <HabitsWidget />
+        <v-col cols="6">
+          <CategoriesWidget />
         </v-col>
       </v-row>
     </v-container>
@@ -27,6 +23,7 @@
 <script setup lang="ts">
   import PageHeader from '@/components/_shared/PageHeader.vue';
   import HabitsWidget from '@/components/widgets/HabitsWidget.vue'
+  import CategoriesWidget from '@/components/widgets/CategoriesWidget.vue'
 </script>
 
 <style>

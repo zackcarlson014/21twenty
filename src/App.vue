@@ -18,6 +18,14 @@
   import { Authenticator } from '@aws-amplify/ui-vue';
   import '@aws-amplify/ui-vue/styles.css';
   import NavBar from './components/_shared/NavBar.vue';
+  import { useHabitsStore } from '@/stores/habits';
+  import { onBeforeMount } from 'vue';
+
+  const habitsStore = useHabitsStore();
+
+  onBeforeMount(async () => {
+    await habitsStore.requestGetHabits();
+  });
 </script>
 
 <style>

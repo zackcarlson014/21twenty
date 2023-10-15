@@ -34,7 +34,6 @@
         textAlign: 'left',
       },
       onCellClicked: (event: CellClickedEvent) => {
-        console.log('Cell was clicked', event);
         router.push({
           name: 'habit',
           params: { id: event.data.id },
