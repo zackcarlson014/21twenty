@@ -48,7 +48,7 @@
     <template v-slot:append>
       <v-menu>
         <template v-slot:activator="{ props }">
-          <AccountBtn
+          <AccountMenu
             :activatorProps="props"
             :username="authProps.user.username"
           />
@@ -68,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-  import AccountBtn from './AccountBtn.vue'
+  import AccountMenu from './AccountMenu.vue'
   const authProps = defineProps(['signOut', 'user']);
 </script>
 
