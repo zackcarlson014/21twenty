@@ -1,5 +1,5 @@
 <template>
-  <v-card flat color="blue lighten-5" class="title pageHeader mt-8">
+  <v-card flat color="#bebfc2" class="title pageHeader mt-8">
     <v-card-title
       class="title font-weight-bold black--text text-h5"
     >
@@ -10,7 +10,7 @@
 
         <v-spacer />
 
-        <v-col cols="auto">
+        <v-col v-if="showActions" cols="auto">
           <v-icon color="white" @click="props.openDialog">
             mdi-plus-circle
           </v-icon>
@@ -21,7 +21,17 @@
 </template>
 
 <script setup lang="ts">
-  const props = defineProps(['openDialog']);
+  const props = defineProps({
+    openDialog: {
+      type: Function,
+      required: false,
+    },
+    showActions: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+  });
 </script>
 
 
