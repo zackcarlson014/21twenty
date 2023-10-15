@@ -31,6 +31,17 @@
               </v-list-item-title>
             </v-list-item>
           </RouterLink>
+
+          <RouterLink
+            :to="{ name: 'categories' }"
+            class="router-link-black"
+          >
+            <v-list-item>
+              <v-list-item-title>
+                Categories
+              </v-list-item-title>
+            </v-list-item>
+          </RouterLink>
         </v-list>
       </v-menu>
     </template>

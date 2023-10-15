@@ -10,7 +10,10 @@
 
     <v-card-text>
       <v-list>
-        <v-list-item v-for="(category, i) in categories" :key="i">
+        <v-list-item
+          v-for="(category, i) in categories"
+          :key="i"
+        >
           <v-icon class="mr-2">
             {{ category.icon }}
           </v-icon>
@@ -22,7 +25,9 @@
 </template>
 
 <script setup lang="ts">
+  import { useHabitsStore } from '@/stores/habits'
   import { CATEGORIES } from '@/_helpers/categories';
 
+  const habitsStore = useHabitsStore();
   const categories = CATEGORIES;
 </script>
