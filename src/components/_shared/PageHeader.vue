@@ -1,9 +1,9 @@
 <template>
-  <v-card flat color="blue lighten-5" class="title pageHeader mx-16 mt-8">
+  <v-card flat color="blue lighten-5" class="title pageHeader mt-8">
     <v-card-title
       class="title font-weight-bold black--text text-h5"
     >
-      <v-row density="compact" class="ml-2">
+      <v-row density="compact" class="ml-10">
         <v-col cols="10" class="ml-16">
           <slot />
         </v-col>
@@ -28,6 +28,5 @@
 <style>
 .pageHeader {
   height: auto;
-  margin-top: -40px;
 }
 </style>

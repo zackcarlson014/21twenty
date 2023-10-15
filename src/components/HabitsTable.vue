@@ -1,7 +1,8 @@
 <template>
   <AgGridVue
-    style="width: 1000px; height: 500px"
+    style="width: 100%; min-height: 500px"
     class="ag-theme-alpine"
+    :gridOptions="gridOptions"
     :columnDefs="columnDefs"
     :rowData="rowData"
   />
@@ -15,6 +16,9 @@
   import "ag-grid-community/styles//ag-theme-alpine.css";
   import { CellClickedEvent } from 'ag-grid-community/dist/lib/events';
   import router from '@/router';
+import { GridOptions } from 'ag-grid-community/dist/lib/entities/gridOptions';
+
+  // const props = defineProps(['requestDeleteHabit']);
 
   const habitsStore = useHabitsStore();
 
@@ -55,17 +59,91 @@
       },
     },
     {
-        headerName: 'Delete',
-        cellRenderer: 'btnCellRenderer',
-        cellRendererParams: {
-          clicked: () => {},
+      headerClass: 'text-center',
+      cellStyle: {
+        textAlign: 'center',
+      },
+      width: 75,
+      sortable: false,
+      filter: false,
+      resizable: false,
+      cellRenderer: function(){
+        return '<button type="button"><i class="createButton mdi mdi-plus-circle"></i></button>'
+      },
+      cellRendererParams: {
+        clicked: (params: Record<string, any>) => {
+          console.log(params);
+          // props.requestDeleteHabit(params.data);
         },
+      },
     },
-  ]
+    {
+      headerClass: 'text-center',
+      cellStyle: {
+        textAlign: 'center',
+      },
+      width: 75,
+      sortable: false,
+      filter: false,
+      resizable: false,
+      cellRenderer: function(){
+        return '<button type="button"><i class="updateButton mdi mdi-pencil"></i></button>'
+      },
+      cellRendererParams: {
+        clicked: (params: Record<string, any>) => {
+          console.log(params);
+          // props.requestDeleteHabit(params.data);
+        },
+      },
+    },
+    {
+      headerClass: 'text-center',
+      cellStyle: {
+        textAlign: 'center',
+      },
+      width: 75,
+      sortable: false,
+      filter: false,
+      resizable: false,
+      cellRenderer: function(){
+        return '<button type="button"><i class="deleteButton mdi mdi-close-circle"></i></button>'
+      },
+      cellRendererParams: {
+        clicked: (params: Record<string, any>) => {
+          console.log(params);
+          // props.requestDeleteHabit(params.data);
+        },
+      },
+    },
+  ];
+
+  const gridOptions: GridOptions<any> = {
+    columnDefs,
+    defaultColDef: {
+      enableRowGroup: true,
+      enablePivot: true,
+      enableValue: true,
+      sortable: true,
+      filter: true,
+      resizable: true,
+    },
+    rowData: [...rowData.value],
+    domLayout: 'autoHeight',
+    animateRows: true,
+  };
 </script>
 
 <style>
-.ag-header-cell-label {
-  justify-content: start;
+.createButton {
+  color: #2196F3;
+  font-size: 25px;
+}
+.updateButton {
+  color: #4CAF50;
+  font-size: 25px;
+}
+.deleteButton {
+  color: #F44336;
+  font-size: 25px;
 }
 </style>

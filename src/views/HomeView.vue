@@ -59,8 +59,8 @@
     </DialogForm>
 
     <v-container fluid>
-      <v-row density="compact" justify="center" class="mx-4">
-        <v-col cols="12" align-self="center">
+      <v-row density="compact" justify="center">
+        <v-col cols="12" align-self="center" class="px-0">
           <PageHeader
             :openDialog="openDialog"
             class="mb-8">
@@ -70,7 +70,9 @@
       </v-row>
 
       <v-row density="compact" justify="center">
-        <HabitsTable />
+        <HabitsTable
+          :requestDeleteHabit="requestDeleteHabit"
+        />
       </v-row>
     </v-container>
   </div>
@@ -80,7 +82,7 @@
   import { API } from 'aws-amplify';
   import { GraphQLResult } from "@aws-amplify/api";
   import { computed, onBeforeMount, ref } from 'vue'
-  import { createHabit } from '../graphql/mutations';
+  import { createHabit, deleteHabit } from '../graphql/mutations';
   import { listHabits } from '../graphql/queries';
   import { Habit, useHabitsStore } from '../stores/habits';
   import { CATEGORIES } from '@/_helpers/categories';
@@ -92,33 +94,7 @@
   const show = ref(false);
   const categories = computed(() => CATEGORIES);
 
-  const requestCreateHabit = async () => {
-    if (!habitsStore.name || !habitsStore.description || !habitsStore.category)
-      return;
-
-    const habit: Habit = {
-      name: habitsStore.name,
-      description: habitsStore.description,
-      category: habitsStore.category,
-    };
-
-    try {
-      await API.graphql({
-        query: createHabit,
-        variables: { input: habit }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-
-    habitsStore.name = '';
-    habitsStore.description = '';
-    habitsStore.category = '';
-    closeDialog();
-    getHabits();
-  }
-
-  const getHabits = async () => {
+  const requestGetHabits = async () => {
     let habitsResult: GraphQLResult<any> = {};
     try {
       habitsResult = await API.graphql({
@@ -133,18 +109,59 @@
     );
 
     return habitsResult;
-  }
+  };
+
+  const requestCreateHabit = async () => {
+    if (!habitsStore.name || !habitsStore.description || !habitsStore.category)
+      return;
+
+    const habit: Habit = {
+      name: habitsStore.name,
+      description: habitsStore.description,
+      category: habitsStore.category,
+    };
+
+    try {
+      await API.graphql({
+        query: createHabit,
+        variables: { input: habit },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+
+    habitsStore.name = '';
+    habitsStore.description = '';
+    habitsStore.category = '';
+    closeDialog();
+    requestGetHabits();
+  };
+
+  const requestDeleteHabit = async (habit: Habit) => {
+    try {
+      await API.graphql({
+        query: deleteHabit,
+        variables: { input: { id: habit.id } },
+      });
+    } catch (error) {
+      console.error(error);
+    };
+
+    requestGetHabits();
+  };
+
   const openDialog = () => {
     show.value = true;
-  }
+  };
+
   const closeDialog = () => {
     habitsStore.name = '';
     habitsStore.description = '';
     habitsStore.category = '';
     show.value = false;
-  }
+  };
 
   onBeforeMount(async () => {
-    await getHabits();
-  })
+    await requestGetHabits();
+  });
 </script>
