@@ -34,10 +34,7 @@
         textAlign: 'left',
       },
       onCellClicked: (event: CellClickedEvent) => {
-        router.push({
-          name: 'habit',
-          params: { id: event.data.id },
-        });
+        habitsStore.routeToHabitPage(event.data.id)
       },
     },
     {

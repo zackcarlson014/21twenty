@@ -1,4 +1,10 @@
-export const CATEGORIES = [
+export interface Category {
+  title: string;
+  value: string;
+  icon: string;
+}
+
+export const CATEGORIES: Category[] = [
   { title: 'Workout', value: 'workout', icon: 'mdi-weight-lifter' },
   { title: 'Sleep', value: 'sleep', icon: 'mdi-sleep' },
   { title: 'Nutrition', value: 'nutrition', icon: 'mdi-nutrition' },

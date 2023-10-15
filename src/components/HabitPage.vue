@@ -7,9 +7,9 @@
 
 <script setup lang="ts">
   import { onMounted, ref } from 'vue';
-  import { getHabit } from '@/graphql/queries';
-  import { GraphQLResult } from '@aws-amplify/api-graphql';
-  import { API } from '@aws-amplify/api/lib-esm/API';
+  import { useHabitsStore } from '@/stores/habits';
+
+  const habitsStore = useHabitsStore();
 
   const props = defineProps(['id']);
 
@@ -17,14 +17,10 @@
   const description = ref('');
 
   const requestGetHabit = async () => {
-    const habitResult: GraphQLResult<any> = await API.graphql({
-      query: getHabit,
-      variables: {
-        id: props.id
-      }
-    });
+    console.log({ props: props.id });
+    const habit = habitsStore.requestGetHabit(props.id);
 
-    return habitResult.data.getHabit;
+    return habit;
   };
 
   onMounted(async () => {
@@ -32,4 +28,4 @@
     name.value = result.name;
     description.value = result.description;
   });
-</script>@/graphql/queries/queries
+</script>

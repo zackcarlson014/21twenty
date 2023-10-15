@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { API } from 'aws-amplify';
-import { listHabits } from '@/graphql/queries';
+import { listHabits, getHabit } from '@/graphql/queries';
 import { createHabit, deleteHabit } from '../graphql/mutations';
+import router from '@/router';
 
 export interface Habit {
   name: string;
@@ -41,6 +42,21 @@ export const useHabitsStore = defineStore({
         habitsResult.data.listHabits.items
       );
     },
+    async requestGetHabit(id: string): Promise<Habit> {
+      let habitResult: Record<string, any> = {};
+      try {
+        habitResult = await API.graphql({
+          query: getHabit,
+          variables: { id: id },
+        });
+      } catch (error) {
+        console.error(error);
+      }
+
+      console.log({ habitResult });
+
+      return habitResult.data.getHabit;
+    },
     async requestCreateHabit(): Promise<void> {
       if (!this.name || !this.description || !this.category)
         return;
@@ -76,6 +92,12 @@ export const useHabitsStore = defineStore({
       };
   
       this.requestGetHabits();
+    },
+    routeToHabitPage(id: string): void {
+      router.push({
+        name: 'habit',
+        params: { id },
+      });
     },
   },
 })
