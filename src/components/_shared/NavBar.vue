@@ -4,44 +4,75 @@
     density="compact"
   >
     <template v-slot:prepend>
-      <v-menu>
+      <v-menu max-width="250" :close-on-content-click="false">
         <template v-slot:activator="{ props }">
           <v-app-bar-nav-icon v-bind="props" />
         </template>
 
         <v-list>
-          <RouterLink
-            :to="{ name: 'home' }"
-            class="router-link-black"
-          >
-            <v-list-item>
-              <v-list-item-title>
-                Home
-              </v-list-item-title>
-            </v-list-item>
-          </RouterLink>
+          <v-list-item>
+            <v-list-item-title dense>
+              <v-icon class="mr-2">
+                mdi-home
+              </v-icon>
+              Home
+            </v-list-item-title>
+          </v-list-item>
 
-          <RouterLink
-            :to="{ name: 'habits' }"
-            class="router-link-black"
-          >
-            <v-list-item>
-              <v-list-item-title>
-                Habits
-              </v-list-item-title>
+          <v-list-item>
+            <v-list-item-title dense>
+              <v-icon class="mr-2">
+                mdi-home
+              </v-icon>
+              Habits
+            </v-list-item-title>
+              <!-- <v-expansion-panel-text>
+                <v-list>
+                  <v-list-item
+                    v-for="(habit, i) in habitsStore.habits"
+                    :key="i"
+                    @click="habitsStore.routeToHabitPage(habit.id as string)"
+                  >
+                    <v-row justify="center">
+                      <v-col cols="auto">
+                        {{ habit.name }}
+                      </v-col>
+                    </v-row>
+                  </v-list-item>
+                </v-list>
+              </v-expansion-panel-text> -->
             </v-list-item>
-          </RouterLink>
 
-          <RouterLink
-            :to="{ name: 'categories' }"
-            class="router-link-black"
-          >
-            <v-list-item>
-              <v-list-item-title>
-                Categories
-              </v-list-item-title>
-            </v-list-item>
-          </RouterLink>
+            <v-list-item append-icon="mdi-chevron-down">
+              <v-menu location="end" offset="80">
+                <template v-slot:activator="{ props }">
+                  <v-list-item-title dense v-bind="props">
+                    <v-icon class="mr-2">
+                      mdi-home
+                    </v-icon>
+                    Categories
+                  </v-list-item-title>
+                </template>
+
+                <v-list>
+                  <v-list-item
+                    v-for="(category, i) in categories"
+                    :key="i"
+                    @click="routeToCategoryPage(category.value as string)"
+                  >
+                    <v-row justify="center">
+                      <v-col cols="auto">
+                        {{ category.title }}
+                      </v-col>
+                    </v-row>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+
+            <!-- <v-expansion-panel-text>
+                
+              </v-expansion-panel-text> -->
+          </v-list-item>
         </v-list>
       </v-menu>
     </template>
@@ -80,7 +111,14 @@
 
 <script setup lang="ts">
   import AccountMenu from './AccountMenu.vue'
+  import { useHabitsStore } from '@/stores/habits';
+  import { CATEGORIES } from '@/_helpers/categories';
+  import { routeToCategoryPage } from '../_helpers/routers/categoryRouter';
+
   const authProps = defineProps(['signOut', 'user']);
+
+  const habitsStore = useHabitsStore();
+  const categories = CATEGORIES;
 </script>
 
 <style>
